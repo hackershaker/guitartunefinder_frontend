@@ -1,3 +1,3 @@
-const baseUrl = "http://localhost:8080";
+const baseUrl = "https://guitartunefinder-backend.herokuapp.com/";
 
 export { baseUrl };
