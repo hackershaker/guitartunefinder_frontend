@@ -1,3 +1,3 @@
-const baseUrl = "https://guitartunefinder-backend.herokuapp.com/";
+const baseUrl = "https://guitartunefinder-backend.herokuapp.com";
 
 export { baseUrl };
