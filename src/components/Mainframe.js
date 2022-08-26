@@ -12,17 +12,17 @@ import AddSongDialog from "./AddSongDialog";
 import AddTuneDialog from "./AddTuneDialog";
 import { baseUrl } from "./constants";
 import Songtable from "./Songtable";
-import TuneSelector from "./TuneSelector";
 import TuningSetting from "./Tunesetting";
 
 const DefaultFrame = (props) => {
   var tunedic = useRef({});
-  const [tune, setTune] = useState('')
+  const [tune, setTune] = useState("");
   const [open, setOpen] = useState(false);
   const [openaddsong, setOpenaddsong] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
   const [refreshSongList, setRefreshSongList] = useState(false);
-  
+  const [loading, setLoading] = useState(false);
+
   const returnTuneString = (dict) => {
     return dict[6] + dict[5] + dict[4] + dict[3] + dict[2] + dict[1];
   };
@@ -52,23 +52,24 @@ const DefaultFrame = (props) => {
       },
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-      })
+      .then((response) => {
+        if(response.status === 201) {
+          console.log("Add song complete!")
+          setLoading(false)
+        }
+      }
+      )
       .catch((error) => {
         console.log("Error occured while fetch: ", error);
       });
   };
 
   const fetchSearch = () => {
-    console.log(returnTuneString(tunedic.current))
-    var tunestr = returnTuneString(tunedic.current)
+    console.log(returnTuneString(tunedic.current));
+    var tunestr = returnTuneString(tunedic.current);
     console.log("send this body: ", tunestr);
     fetch(
-      baseUrl +
-        "/api/songs/search?" +
-        new URLSearchParams({ tuning: tunestr }),
+      baseUrl + "/api/songs/search?" + new URLSearchParams({ tuning: tunestr }),
       {
         method: "GET",
         headers: {
@@ -93,7 +94,7 @@ const DefaultFrame = (props) => {
           searchResult.push(row);
         });
         console.log(searchResult);
-        setRefreshSongList(true);
+        setRefreshSongList(!refreshSongList);
       })
       .catch((err) => console.log("Error occured during fetch: ", err));
   };
@@ -108,6 +109,7 @@ const DefaultFrame = (props) => {
     }, [searchResult]);
     return (
       <Songtable
+        key={refreshSongList}
         rowdata={searchResult}
         refreshSongList={refreshSongList}
         setRefreshSongList={setRefreshSongList}
@@ -144,6 +146,8 @@ const DefaultFrame = (props) => {
                 <AddSongDialog
                   open={openaddsong}
                   fetchAddSong={fetchAddSong}
+                  loading={loading}
+                  setLoading={setLoading}
                   onClose={handleClose_addsong}
                 ></AddSongDialog>
               </Toolbar>
@@ -151,7 +155,12 @@ const DefaultFrame = (props) => {
           </Grid>
           <Grid container xs={12} sx={{}}>
             <Grid item xs={6} sx={{ backgroundColor: "skyblue" }}>
-              <TuningSetting tune={tune} setTune={setTune} tunedic={tunedic} returnTuneString={returnTuneString} />
+              <TuningSetting
+                tune={tune}
+                setTune={setTune}
+                tunedic={tunedic}
+                returnTuneString={returnTuneString}
+              />
               <Button
                 sx={{ border: "1px groove white", margin: "10px" }}
                 onClick={fetchSearch}

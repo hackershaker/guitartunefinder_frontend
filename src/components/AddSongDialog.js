@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { LoadingButton } from '@mui/lab';
 import { useState } from "react";
 
 const AddSongDialog = (props) => {
@@ -48,15 +49,12 @@ const AddSongDialog = (props) => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => {
-              console.log(form);
-              props.fetchAddSong(form);
-              props.onClose();
-            }}
-          >
-            Save
-          </Button>
+          <LoadingButton onClick={() => {
+            props.setLoading(true)
+            props.fetchAddSong(form)
+          }} loading={props.loading}>
+          Save
+          </LoadingButton>
           <Button onClick={props.onClose}>Cancel</Button>
         </DialogActions>
       </Dialog>

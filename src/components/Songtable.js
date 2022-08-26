@@ -4,6 +4,7 @@ import {
   TableBody,
   TableCell,
   TableContainer,
+  TableFooter,
   TableHead,
   TablePagination,
   TableRow,
@@ -18,7 +19,7 @@ const Songtable = (props) => {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(3);
-  const [refresh, setRefresh] = useState(false)
+  const [refresh, setRefresh] = useState(false);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -26,12 +27,12 @@ const Songtable = (props) => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
-    setPage(0)
-  }
+    setPage(0);
+  };
 
-  useEffect(() => {
-    console.log("Rerendering Songtable")
-  }, [props.rowdata])
+  // useEffect(() => {
+  //   setRefresh(!refresh)
+  // }, [props.rowdata]);
 
   return (
     <Paper>
@@ -56,11 +57,7 @@ const Songtable = (props) => {
                 return (
                   <TableRow role="row" hover tabIndex="-1">
                     {columns.map((column) => {
-                      return(
-                        <TableCell>
-                          {row[column['id']]}
-                        </TableCell>
-                      )
+                      return <TableCell>{row[column["id"]]}</TableCell>;
                     })}
                   </TableRow>
                 );
@@ -68,14 +65,15 @@ const Songtable = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[3, 5, 10]}
-        count={props.rowdata.length} //The total number of rows.
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage} // Callback fired when the page is changed.
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+        <TablePagination
+          rowsPerPageOptions={[3, 5, 10]}
+          count={props.rowdata.length} //The total number of rows.
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage} // Callback fired when the page is changed.
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{ display: "flex", justifyContent:"flex-end" }}
+        />
     </Paper>
   );
 };
