@@ -1,0 +1,7 @@
+.basebox {
+    border: 2px red dotted;
+    flex:1;
+    flex-direction: column;
+    display: flex;
+    padding: 10px;
+}

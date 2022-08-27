@@ -4,15 +4,18 @@ import {
   Container,
   Grid,
   Toolbar,
-  Typography
+  Typography,
+  Paper,
 } from "@mui/material";
 import React, { useRef, useState } from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import AddSongDialog from "./AddSongDialog";
 import AddTuneDialog from "./AddTuneDialog";
 import { baseUrl } from "./constants";
+import Footer from "./Footer";
 import Songtable from "./Songtable";
 import TuningSetting from "./Tunesetting";
+import "../style/Mainframe.css";
 
 const DefaultFrame = (props) => {
   var tunedic = useRef({});
@@ -53,12 +56,11 @@ const DefaultFrame = (props) => {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        if(response.status === 201) {
-          console.log("Add song complete!")
-          setLoading(false)
+        if (response.status === 201) {
+          console.log("Add song complete!");
+          setLoading(false);
         }
-      }
-      )
+      })
       .catch((error) => {
         console.log("Error occured while fetch: ", error);
       });
@@ -118,16 +120,27 @@ const DefaultFrame = (props) => {
   };
 
   return (
-    <div>
-      {/* Grid Test */}
-      <Container>
+    <div class="basebox" className="basebox">
+      <Container
+        sx={{
+          border: "2px green solid",
+          flexDirection: "column",
+          flex: 1,
+          paddingTop: "5px",
+          display: "flex",
+        }}
+      >
         <Grid
           className="wholecontainer"
           container
           spacing={1}
-          sx={{ border: "2px solid gray" }}
+          sx={{ border: "dashed gray 2px", display: "flex" }}
         >
-          <Grid item xs={12} sx={{ border: "2px solid gray", margin: "10px" }}>
+          <Grid
+            item
+            xs={12}
+            sx={{ border: "2px solid gray", margin: "10px", height: "100" }}
+          >
             <AppBar position="static" sx={{ backgroundColor: "skyblue" }}>
               <Toolbar>
                 <Typography sx={{ flexGrow: 1, textAlign: "left" }}>
@@ -174,6 +187,15 @@ const DefaultFrame = (props) => {
             </Grid>
           </Grid>
         </Grid>
+        <Paper
+          sx={{
+            height: "50px",
+            border: "2px solid",
+            marginTop: 'auto', // 이 요소의 위쪽에 가능한 가장 큰 margin을 부여한다.
+          }}
+        >
+          <Footer></Footer>
+        </Paper>
       </Container>
     </div>
   );
