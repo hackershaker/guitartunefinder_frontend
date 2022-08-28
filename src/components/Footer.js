@@ -1,23 +1,37 @@
-import { BottomNavigation, Grid, IconButton } from "@mui/material";
-import GitHubIcon from '@mui/icons-material/GitHub';
+import GitHubIcon from "@mui/icons-material/GitHub";
+import MailIcon from "@mui/icons-material/Mail";
+import { Grid, IconButton, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import { createTheme } from "@mui/material/styles";
+import { typography } from "@mui/system";
 
 const Footer = () => {
   return (
-    // <BottomNavigation
-    //   showLabels
-    //   value={value}
-    //   onChange={(event, newValue) => {
-    //     setValue(newValue);
-    //   }}
-    // >
-    //   <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-    //   <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-    //   <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
-    // </BottomNavigation>
-    <Grid sx={{ flexGrow:1, }}>
-        <IconButton>
-            <GitHubIcon />
-        </IconButton>
+    <Grid
+      sx={{
+        flexGrow: 1,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        border: "1px solid",
+        gap: "10px"
+      }}
+    >
+      <IconButton size="large">
+        <GitHubIcon sx={{ fontSize: "35px", color: "white" }} />
+      </IconButton>
+      <IconButton size="large">
+        <MailIcon sx={{ fontSize: "35px", color: "white" }} />
+      </IconButton>
+      <Button
+        style={{
+          borderRadius: 10,
+          backgroundColor: "#FFFFFF",
+          marginLeft:"7px",
+        }}
+      >
+        <Typography color="skyblue" fontSize="15px" sx={{fontWeight: 'bold'}}>ABOUT</Typography>
+      </Button>
     </Grid>
   );
 };

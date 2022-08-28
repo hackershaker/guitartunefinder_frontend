@@ -126,7 +126,6 @@ const DefaultFrame = (props) => {
           border: "2px green solid",
           flexDirection: "column",
           flex: 1,
-          paddingTop: "5px",
           display: "flex",
         }}
       >
@@ -134,7 +133,7 @@ const DefaultFrame = (props) => {
           className="wholecontainer"
           container
           spacing={1}
-          sx={{ border: "dashed gray 2px", display: "flex" }}
+          sx={{ border: "dashed gray 5px", display: "flex" }}
         >
           <Grid
             item
@@ -166,32 +165,58 @@ const DefaultFrame = (props) => {
               </Toolbar>
             </AppBar>
           </Grid>
-          <Grid container xs={12} sx={{}}>
-            <Grid item xs={6} sx={{ backgroundColor: "skyblue" }}>
-              <TuningSetting
-                tune={tune}
-                setTune={setTune}
-                tunedic={tunedic}
-                returnTuneString={returnTuneString}
-              />
-              <Button
-                sx={{ border: "1px groove white", margin: "10px" }}
-                onClick={fetchSearch}
+          <Grid
+            container
+            xs={12}
+            sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+          >
+            <Grid
+              item
+              xs={6}
+              sx={{
+                backgroundColor: "skyblue",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "stretch",
+                border: "2px red solid",
+                minWidth: "400px",
+              }}
+            >
+              <Grid
+                sx={{
+                  border: "1px blue dashed",
+                  flex: 1,
+                  alignItems: "stretch",
+                }}
               >
-                SEARCH
-              </Button>
-              <Button onClick={Test}>Test</Button>
+                <TuningSetting
+                  tune={tune}
+                  setTune={setTune}
+                  tunedic={tunedic}
+                  returnTuneString={returnTuneString}
+                />
+              </Grid>
+              <Grid sx={{ border: "1px green dashed", alignSelf: "center" }}>
+                <Button
+                  sx={{ border: "1px groove white", margin: "0 auto" }}
+                  onClick={fetchSearch}
+                >
+                  SEARCH
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} sx={{
+                minWidth: "400px",}}>
               <SongtableContainer />
             </Grid>
           </Grid>
         </Grid>
         <Paper
           sx={{
-            height: "50px",
-            border: "2px solid",
-            marginTop: 'auto', // 이 요소의 위쪽에 가능한 가장 큰 margin을 부여한다.
+            backgroundColor: "skyblue",
+            height: "100px",
+            marginTop: "auto", // 이 요소의 위쪽에 가능한 가장 큰 margin을 부여한다.
+            display: "flex",
           }}
         >
           <Footer></Footer>

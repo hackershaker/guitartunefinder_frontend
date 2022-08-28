@@ -1,6 +1,6 @@
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import ArrowDropUpOutlinedIcon from "@mui/icons-material/ArrowDropUpOutlined";
-import { IconButton, Stack } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useRef, useState } from "react";
 import { CircularLinkedList, Node } from "./CircularLinkedList";
@@ -39,25 +39,34 @@ const TuneSelector = (props) => {
     presentNode.current = presentNode.current.next;
     setTune(presentNode.current.value);
   };
-  
+
   useEffect(() => {
-    presentNode.current = tuneCircularList.findNodebyValue(presentNode.current, props.tune);
-    props.tuneChange(props.stringNum ,presentNode.current.value);
+    presentNode.current = tuneCircularList.findNodebyValue(
+      presentNode.current,
+      props.tune
+    );
+    props.tuneChange(props.stringNum, presentNode.current.value);
   }, []);
 
   useEffect(() => {
     try {
-      props.tuneChange(props.stringNum ,presentNode.current.value);
+      props.tuneChange(props.stringNum, presentNode.current.value);
     } catch (error) {
       console.log(error);
     }
-  }, [presentNode.current.value])
+  }, [presentNode.current.value]);
 
   return (
     <div>
       <Box
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          border: "2px white",
+        }}
       >
+        <Typography>{props.stringNum}</Typography>
         <Stack sx={{ alignItems: "center" }}>
           <IconButton onClick={prevTune}>
             <ArrowDropUpOutlinedIcon />
